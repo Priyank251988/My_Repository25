@@ -1,0 +1,28 @@
+2026-05-13 14:59:51,592 DEBUG [main] Rough.Test_Browser: Navigated to https://test.tina5s.cloud/AwareBase/AwareBase-Corp
+2026-05-13 14:59:53,685 DEBUG [main] Rough.Test_Browser: Login submitted
+2026-05-13 16:11:49,714 DEBUG [main] Rough.Test_Browser: Navigated to https://test.tina5s.cloud/AwareBase/AwareBase-Corp
+2026-05-13 16:12:49,012 DEBUG [main] Rough.Test_Browser: Navigated to https://test.tina5s.cloud/AwareBase/AwareBase-Corp
+2026-05-13 16:13:39,439 DEBUG [main] Rough.Test_Browser: Navigated to https://test.tina5s.cloud/AwareBase/AwareBase-Corp
+2026-05-13 16:13:42,768 DEBUG [main] Rough.Test_Browser: Login submitted
+2026-05-13 16:16:15,609 DEBUG [main] Rough.Test_Browser: Navigated to https://test.tina5s.cloud/AwareBase/AwareBase-Corp
+2026-05-13 16:16:18,280 DEBUG [main] Rough.Test_Browser: Login submitted
+2026-05-13 16:22:58,516 DEBUG [main] Rough.Test_Browser: Navigated to https://test.tina5s.cloud/AwareBase/AwareBase-Corp
+2026-05-13 16:23:00,043 DEBUG [main] Rough.Test_Browser: Login submitted
+2026-05-13 16:27:11,319 DEBUG [main] Rough.Test_Browser: Navigated to https://test.tina5s.cloud/AwareBase/AwareBase-Corp
+2026-05-13 16:27:13,177 DEBUG [main] Rough.Test_Browser: Login submitted
+2026-05-13 16:30:10,074 DEBUG [main] Rough.Test_Browser: Navigated to https://uat.tina5s.cloud/AwareBase/AwareBase-Corp/
+2026-05-13 16:30:16,302 DEBUG [main] Rough.Test_Browser: Login submitted
+2026-05-13 16:31:35,516 DEBUG [main] Rough.Test_Browser: Navigated to https://uat.tina5s.cloud/AwareBase/AwareBase-Corp/
+2026-05-13 16:31:37,710 DEBUG [main] Rough.Test_Browser: Login submitted
+2026-05-13 16:41:35,794 DEBUG [main] Rough.Test_Browser: Navigated to https://uat.tina5s.cloud/AwareBase/AwareBase-Corp/
+2026-05-13 16:41:41,600 DEBUG [main] Rough.Test_Browser: Login submitted
+2026-05-13 16:47:29,093 DEBUG [main] Rough.Test_Browser: Navigated to https://uat.tina5s.cloud/AwareBase/AwareBase-Corp/
+2026-05-13 16:47:31,666 DEBUG [main] Rough.Test_Browser: Login submitted
+2026-05-13 17:20:35,570 DEBUG [main] Rough.Test_Browser: Navigated to https://uat.tina5s.cloud/AwareBase/AwareBase-Corp/
+2026-05-13 17:20:39,591 DEBUG [main] Rough.Test_Browser: Login submitted
+2026-05-13 17:25:49,816 DEBUG [main] Rough.Test_Browser: Navigated to https://uat.tina5s.cloud/AwareBase/AwareBase-Corp/
+2026-05-13 17:25:51,913 DEBUG [main] Rough.Test_Browser: Login submitted
+2026-05-13 17:31:04,872 DEBUG [main] Rough.Test_Browser: Navigated to https://uat.tina5s.cloud/AwareBase/AwareBase-Corp/
+2026-05-13 17:31:07,303 DEBUG [main] Rough.Test_Browser: Login submitted
+2026-05-13 17:35:34,073 DEBUG [main] Rough.Test_Browser: Navigated to https://uat.tina5s.cloud/AwareBase/AwareBase-Corp/
+2026-05-13 17:35:36,272 DEBUG [main] Rough.Test_Browser: Login submitted
