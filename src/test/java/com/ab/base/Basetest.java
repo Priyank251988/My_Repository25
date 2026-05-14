@@ -14,52 +14,59 @@ import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.AfterSuite;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 
 public class Basetest {
 	
 	public static Properties  or;
 	public static Properties  config;
 	public static FileInputStream fis;
-	public static WebDriver driver;
+	// Use ThreadLocal to support parallel test execution where each thread has its own WebDriver
+	public static ThreadLocal<WebDriver> driver = new ThreadLocal<WebDriver>();
 	public Logger log=Logger.getLogger(this.getClass().getName());
 	
-	@BeforeSuite
+	@BeforeMethod
 	public void setUp()
 	{
 		System.out.println("1111");
-		if(driver==null)
 		try {
-			fis=new FileInputStream(System.getProperty("user.dir")+"\\src\\test\\resources\\com\\ab\\properties\\or.properties");
-			or=new Properties();
-			or.load(fis);
-			
-			fis=new FileInputStream(System.getProperty("user.dir")+"\\src\\test\\resources\\com\\ab\\properties\\config.properties");
-			config=new Properties();
-			config.load(fis);
+			// Load properties once
+			if (config == null) {
+				fis=new FileInputStream(System.getProperty("user.dir")+"\\src\\test\\resources\\com\\ab\\properties\\or.properties");
+				or=new Properties();
+				or.load(fis);
+                
+				fis=new FileInputStream(System.getProperty("user.dir")+"\\src\\test\\resources\\com\\ab\\properties\\config.properties");
+				config=new Properties();
+				config.load(fis);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		if (config.getProperty("browser").equalsIgnoreCase("chrome"))
-		{
-			driver=new ChromeDriver();
+
+		// create a fresh browser instance for each test method invocation
+		if (driver.get() == null) {
+			String browser = config.getProperty("browser");
+			if (browser == null) {
+				throw new RuntimeException("Browser not specified in config.properties");
+			}
+			WebDriver wd;
+			if (browser.equalsIgnoreCase("chrome")) {
+				wd = new ChromeDriver();
+			} else if (browser.equalsIgnoreCase("edge")) {
+				wd = new EdgeDriver();
+			} else if (browser.equalsIgnoreCase("firefox")) {
+				wd = new FirefoxDriver();
+			} else {
+				throw new RuntimeException("Unsupported browser: " + browser);
+			}
+			driver.set(wd);
 		}
-		else if (config.getProperty("browser").equalsIgnoreCase("edge"))
-		{
-			driver=new EdgeDriver();
-		}
-		 else if (config.getProperty("browser").equalsIgnoreCase("firefox"))
-		 {
-			 driver=new FirefoxDriver();
-		 }
-		driver.get(config.getProperty("testurl"));
+		getDriver().get(config.getProperty("testurl"));
 		log.debug("Navigated to "+config.getProperty("testurl"));
-		driver.manage().window().maximize();
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(40));
+		getDriver().manage().window().maximize();
+		getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(40));
 		
 	}
 
@@ -69,7 +76,7 @@ public class Basetest {
 	 */
 	public void waitForLoaderToDisappear() {
 		try {
-			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+			WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(30));
 			wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("tree_lodar11")));
 		} catch (Exception e) {
 			// ignore - loader might not be present
@@ -81,21 +88,21 @@ public class Basetest {
 	 * attempts a normal click and falls back to JS click if intercepted.
 	 */
 	public void safeClick(By locator) {
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+		WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(30));
 		waitForLoaderToDisappear();
 		WebElement el = wait.until(ExpectedConditions.elementToBeClickable(locator));
 		try {
 			el.click();
 		} catch (org.openqa.selenium.ElementClickInterceptedException ex) {
 			log.warn("Click intercepted for locator " + locator + ", falling back to JS click", ex);
-			((JavascriptExecutor) driver).executeScript("arguments[0].click();", el);
+			((JavascriptExecutor) getDriver()).executeScript("arguments[0].click();", el);
 		}
 	}
 	
 	public boolean isElementPresent(String locator)
 	{
 		try {
-			driver.findElement(org.openqa.selenium.By.xpath(locator));
+			getDriver().findElement(org.openqa.selenium.By.xpath(locator));
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -103,12 +110,22 @@ public class Basetest {
 	}
 	
 	
-	@AfterSuite
+	@AfterMethod
 	public void tearDown()
 	{
-		if(driver!=null)
+		if(getDriver()!=null)
 		{
-			driver.quit();
+			try {
+				getDriver().quit();
+			} catch (Exception e) {
+				// ignore
+			}
+			driver.remove();
 		}
+	}
+
+	// Helper to get the WebDriver for the current thread
+	public static WebDriver getDriver() {
+		return driver.get();
 	}
 }

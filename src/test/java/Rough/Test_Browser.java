@@ -27,20 +27,20 @@ public class Test_Browser extends Basetest {
 	public void testLoginAndClickNew() throws InterruptedException {
 		
 		// locate and interact with login fields
-		WebElement user = driver.findElement(By.xpath("//*[@id=\"ctl00_ContentPlaceHolder1_Login_txtUsrEmailId\"]"));
+		WebElement user = getDriver().findElement(By.xpath("//*[@id=\"ctl00_ContentPlaceHolder1_Login_txtUsrEmailId\"]"));
 		user.sendKeys("priyank.sharma@awarebase.com");
-		driver.findElement(By.xpath("//*[@id=\"ctl00_ContentPlaceHolder1_Login_btnCheckUserType\"]")).click();
-		WebElement pass = driver.findElement(By.xpath("//*[@id=\"ctl00_ContentPlaceHolder1_Login_txtUsrPwd\"]"));
+		getDriver().findElement(By.xpath("//*[@id=\"ctl00_ContentPlaceHolder1_Login_btnCheckUserType\"]")).click();
+		WebElement pass = getDriver().findElement(By.xpath("//*[@id=\"ctl00_ContentPlaceHolder1_Login_txtUsrPwd\"]"));
 		pass.sendKeys("Pass@Pass@123");
-		driver.findElement(By.xpath("//*[@id=\"ctl00_ContentPlaceHolder1_Login_btnLogin\"]")).sendKeys(Keys.ENTER);
+		getDriver().findElement(By.xpath("//*[@id=\"ctl00_ContentPlaceHolder1_Login_btnLogin\"]")).sendKeys(Keys.ENTER);
 		log.debug("Login submitted");
 		
 		//Thread.sleep(30000); // Wait for the dropdown to appear
 
 		// wait for the application to finish login and the main UI to be ready
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+		WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(20));
 		
-		Assert.assertTrue(isElementPresent("//*[@id=\"tab1\"]/span"), "Login button should be present");
+		Assert.assertTrue(isElementPresent("//*[@id=\"tab1\"]/span"), "Fvorites should be present");
 		// Wait for the Favorites page to load and the "New" button (upper-left) to be clickable.
 		
 		  By newBtnLocator = By.xpath("//*[@id='top_New']");
