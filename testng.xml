@@ -8,7 +8,13 @@
         <listener class-name="com.ab.listener.Custom_listener"/>
     </listeners>
 
-    
+    <test name="LoginTest">
+
+        <classes>
+            <class name="com.ab.testcases.LoginTest"/>
+        </classes>
+
+    </test>
 
     <test name="NewRecordTest">
 
