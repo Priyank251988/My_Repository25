@@ -29,6 +29,7 @@ public class Basetest {
 	@BeforeMethod
 	public void setUp()
 	{
+		
 		System.out.println("1111");
 		try {
 			// Load properties once
@@ -61,6 +62,7 @@ public class Basetest {
 			} else {
 				throw new RuntimeException("Unsupported browser: " + browser);
 			}
+			
 			driver.set(wd);
 		}
 		getDriver().get(config.getProperty("testurl"));

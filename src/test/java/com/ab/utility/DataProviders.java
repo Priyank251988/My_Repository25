@@ -14,6 +14,14 @@ public class DataProviders {
 		return Data_Util.getData(testcase, excel);
 	}
 	
+	@DataProvider(name="NewRecordTestDP")
+	public static Object[][] getDataSuite2(Method m)
+	{
+		ExcelReader excel=new ExcelReader(Constants.testsheetXL_Path);
+		String testcase=m.getName();
+		return Data_Util.getData(testcase, excel);
+	}
+	
 	
 
 }
