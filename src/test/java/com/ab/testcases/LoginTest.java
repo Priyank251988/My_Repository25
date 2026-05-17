@@ -15,12 +15,13 @@ import com.ab.utility.DataProviders;
 public class LoginTest extends com.ab.base.Basetest {
 	@Test(dataProviderClass=DataProviders.class,dataProvider="LoginTestDP")
 	public void loginTest(Hashtable<String,String>data) {
-		WebElement user = com.ab.base.Basetest.getDriver().findElement(By.xpath("//*[@id=\"ctl00_ContentPlaceHolder1_Login_txtUsrEmailId\"]"));
-		user.sendKeys(data.get("Username"));
-		com.ab.base.Basetest.getDriver().findElement(By.xpath("//*[@id=\"ctl00_ContentPlaceHolder1_Login_btnCheckUserType\"]")).click();
-		WebElement pass = com.ab.base.Basetest.getDriver().findElement(By.xpath("//*[@id=\"ctl00_ContentPlaceHolder1_Login_txtUsrPwd\"]"));
-		pass.sendKeys(data.get("Password"));
-		com.ab.base.Basetest.getDriver().findElement(By.xpath("//*[@id=\"ctl00_ContentPlaceHolder1_Login_btnLogin\"]")).sendKeys(Keys.ENTER);
+		
+		 
+		type("email_xpath", data.get("Username"));
+		click("next_xpath");
+		
+		type("password_xpath", data.get("Password"));
+		click("signin_xpath");
 		log.debug("Login submitted");
 		
 		// wait for the application to finish login and the main UI to be ready

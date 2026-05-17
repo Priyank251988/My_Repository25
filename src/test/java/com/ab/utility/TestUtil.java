@@ -2,6 +2,7 @@ package com.ab.utility;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
 
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
@@ -16,8 +17,11 @@ public class TestUtil extends Basetest{
 	{
 	
 		File srcfile=((TakesScreenshot) getDriver()).getScreenshotAs(OutputType.FILE);
+		
+		Date d=new Date();
+		
 		try {
-			scrrenshotname=System.currentTimeMillis()+"error.png";
+			scrrenshotname="Error_Screenshot"+d.toString().replace(":", "_").replace(" ", "_")+".png";
 			
 			System.out.println(System.getProperty("user.dir")+"\\target\\surefire-reports\\html");
 			FileUtils.copyFile(srcfile, new File(System.getProperty("user.dir")+"\\target\\surefire-reports\\html\\"+scrrenshotname));

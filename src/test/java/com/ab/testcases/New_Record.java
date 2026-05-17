@@ -23,12 +23,11 @@ public class New_Record extends Basetest {
 	
 	{
 		
-		WebElement user = com.ab.base.Basetest.getDriver().findElement(By.xpath("//*[@id=\"ctl00_ContentPlaceHolder1_Login_txtUsrEmailId\"]"));
-		user.sendKeys(data.get("Username"));
-		com.ab.base.Basetest.getDriver().findElement(By.xpath("//*[@id=\"ctl00_ContentPlaceHolder1_Login_btnCheckUserType\"]")).click();
-		WebElement pass = com.ab.base.Basetest.getDriver().findElement(By.xpath("//*[@id=\"ctl00_ContentPlaceHolder1_Login_txtUsrPwd\"]"));
-		pass.sendKeys(data.get("Password"));
-		com.ab.base.Basetest.getDriver().findElement(By.xpath("//*[@id=\"ctl00_ContentPlaceHolder1_Login_btnLogin\"]")).sendKeys(Keys.ENTER);
+		type("email_xpath", data.get("Username"));
+		click("next_xpath");
+		
+		type("password_xpath", data.get("Password"));
+		click("signin_xpath");
 		log.debug("Login submitted");
 		
 		WebDriverWait wait = new WebDriverWait(com.ab.base.Basetest.getDriver(), Duration.ofSeconds(20));
@@ -39,16 +38,15 @@ public class New_Record extends Basetest {
 		  // use safeClick helper to avoid click interception by overlays/loaders
 		  safeClick(newBtnLocator);
 		 
-		  WebElement actn=getDriver().findElement(By.xpath("//*[@id=\"divTpltClassNm_2914119\"]"));
-		  actn.click();
-		  getDriver().findElement(By.xpath("//*[@id=\"btnCreate\"]")).click();
+		  click("action_xpath");
+		  click("create_xpath");
 		  Set<String>handl= getDriver().getWindowHandles();
 		  Iterator<String>it=handl.iterator();
 		  String firstwindow=it.next();
 		  String secondwindow=it.next();
 		  getDriver().switchTo().window(secondwindow);
-		  getDriver().findElement(By.xpath("//*[@id=\"custom@TextBox@VARCHAR39@NVARCHAR(MAX)\"]")).sendKeys("sdsdsdsds");
-		  getDriver().findElement(By.xpath("//*[@id=\"btnSave\"]")).click();
+		  type("field_xpath", "sdsdsdsds");
+		  click("save_xpath");
 		  
 		  wait.until(ExpectedConditions.visibilityOfElementLocated(
 			        By.id("DivNavigation")));

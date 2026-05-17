@@ -75,6 +75,14 @@
 </dependency>
 
 		<!-- POI JARS ENDS -->
+		
+		<!-- Source: https://mvnrepository.com/artifact/com.aventstack/extentreports -->
+<dependency>
+    <groupId>com.aventstack</groupId>
+    <artifactId>extentreports</artifactId>
+    <version>5.1.2</version>
+    <scope>compile</scope>
+</dependency>
 
       <!--log4j dependency-->
       <dependency>

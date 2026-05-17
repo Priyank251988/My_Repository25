@@ -5,6 +5,7 @@ import java.time.Duration;
 import java.util.Properties;
 
 import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -16,6 +17,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+
+import com.ab.listener.Custom_listener;
 
 public class Basetest {
 	
@@ -29,7 +32,7 @@ public class Basetest {
 	@BeforeMethod
 	public void setUp()
 	{
-		
+		PropertyConfigurator.configure(System.getProperty("user.dir")+"\\src\\test\\resources\\com\\ab\\properties\\log4j.properties");
 		System.out.println("1111");
 		try {
 			// Load properties once
@@ -130,4 +133,71 @@ public class Basetest {
 	public static WebDriver getDriver() {
 		return driver.get();
 	}
+	
+	public void click(String locator)
+	{
+		try {
+			if(locator.endsWith("_xpath"))
+			{
+				getDriver().findElement(By.xpath(or.getProperty(locator))).click();
+				log.info("Clicked on element with locator: " + locator);
+				Custom_listener.getTest().info("Clicked on element with locator: " + locator);
+			}
+			else if(locator.endsWith("_id"))
+			{
+				getDriver().findElement(By.id(or.getProperty(locator))).click();
+				log.info("Clicked on element with locator: " + locator);
+				Custom_listener.getTest().info("Clicked on element with locator: " + locator);
+			}
+			else if(locator.endsWith("_css"))
+			{
+				getDriver().findElement(By.cssSelector(or.getProperty(locator))).click();
+				log.info("Clicked on element with locator: " + locator);
+				Custom_listener.getTest().info("Clicked on element with locator: " + locator);
+			}
+			} catch (Exception e) {
+				e.printStackTrace();
+				log.error("Error clicking on element with locator: " + locator, e);
+				throw new RuntimeException("Failed to click on element: " + locator, e);
+		}
+	}
+		
+		public void type(String locator, String value)
+		{
+			try {
+				if(locator.endsWith("_xpath"))
+				{
+					getDriver().findElement(By.xpath(or.getProperty(locator))).sendKeys(value);
+					log.info("Typed into element with locator: " + locator + " value: " + value);
+					Custom_listener.getTest().info("Typed into element with locator: " + locator + " value: " + value);
+				}
+				else if(locator.endsWith("_id"))
+				{
+					getDriver().findElement(By.id(or.getProperty(locator))).sendKeys(value);
+					log.info("Typed into element with locator: " + locator + " value: " + value);
+					Custom_listener.getTest().info("Typed into element with locator: " + locator + " value: " + value);
+				}
+				else if(locator.endsWith("_css"))
+				{
+					getDriver().findElement(By.cssSelector(or.getProperty(locator))).sendKeys(value);
+					log.info("Typed into element with locator: " + locator + " value: " + value);
+					Custom_listener.getTest().info("Typed into element with locator: " + locator + " value: " + value);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				log.error("Error typing into element with locator: " + locator, e);
+				throw new RuntimeException("Failed to type into element: " + locator, e);
+			}
+		}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
