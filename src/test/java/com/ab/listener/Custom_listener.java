@@ -1,11 +1,17 @@
 package com.ab.listener;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
 import java.util.Date;
 
+import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.WebDriverException;
+import org.testng.IAnnotationTransformer;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 import org.testng.Reporter;
+import org.testng.annotations.ITestAnnotation;
 
 import com.ab.utility.ExtentManager;
 import com.ab.utility.TestUtil;
@@ -17,7 +23,7 @@ import com.aventstack.extentreports.markuputils.ExtentColor;
 import com.aventstack.extentreports.markuputils.Markup;
 import com.aventstack.extentreports.markuputils.MarkupHelper;
 
-public class Custom_listener implements ITestListener {
+public class Custom_listener implements ITestListener, IAnnotationTransformer {
 	
 		static Date d=new Date();
 		static String filename="Test-Report"+d.toString().replace(":", "_").replace(" ", "_")+".html";
@@ -86,6 +92,11 @@ public class Custom_listener implements ITestListener {
 
 				extent.flush();
 			}
+	    }
+	    
+	    @Override
+	    public void transform(ITestAnnotation annotation, Class testClass, Constructor testConstructor, Method testMethod) {
+	    	annotation.setRetryAnalyzer(RetryAnalyzer.class);
 	    }
 	}
 	
